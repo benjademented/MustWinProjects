@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { PAQUETES, ETAPAS } from '../constants'
 import Badge from './Badge'
 
-const INPUT = { background: '#2D3139', border: '1px solid #374151', borderRadius: 6, color: '#E5E7EB', padding: '4px 8px', fontSize: 12 }
-const DEL_BTN = { background: 'transparent', color: '#EF4444', border: '1px solid #EF444444', borderRadius: 7, padding: '7px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer', width: '100%' }
+const INPUT = { background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 4, color: '#333333', padding: '4px 8px', fontSize: 12 }
+const DEL_BTN = { background: 'transparent', color: '#DC0A0A', border: '1px solid rgba(220,10,10,0.25)', borderRadius: 4, padding: '7px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer', width: '100%' }
 
 function HospitalRow({ hospital, projectColor, onUpdateOffer, onOpenPackage, onAddPendiente, onCompletePendiente, onDeleteHospital }) {
   const [form, setForm] = useState({
@@ -14,7 +14,6 @@ function HospitalRow({ hospital, projectColor, onUpdateOffer, onOpenPackage, onA
   })
   const [newPendiente, setNewPendiente] = useState('')
 
-  // Solo inicializa desde props al montar (hospital.id como key garantiza remount en cambio de hospital)
   useEffect(() => {
     const o = hospital.offers?.[0] || {}
     setForm({
@@ -39,33 +38,33 @@ function HospitalRow({ hospital, projectColor, onUpdateOffer, onOpenPackage, onA
   }
 
   return (
-    <div style={{ padding: '14px 18px', borderTop: '1px solid #2D3139' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
-        <span style={{ fontWeight: 700, color: '#E5E7EB', fontSize: 13 }}>🏥 {hospital.nombre}</span>
+    <div style={{ padding: '16px 18px', borderTop: '1px solid #E0E0E0' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
+        <span style={{ fontWeight: 700, color: '#333333', fontSize: 14 }}>🏥 {hospital.nombre}</span>
         <Badge etapa={form.etapa} />
       </div>
 
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 12 }}>
         <div>
-          <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 3 }}>LICITACIÓN</div>
+          <div style={{ fontSize: 10, color: '#626469', marginBottom: 3, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.4 }}>Licitación</div>
           <input
             type="date"
             value={form.fecha_licitacion}
             onChange={e => { const v = e.target.value; setForm(f => ({ ...f, fecha_licitacion: v })); saveField('fecha_licitacion', v) }}
-            style={{ ...INPUT, width: 140, colorScheme: 'dark' }}
+            style={{ ...INPUT, width: 140 }}
           />
         </div>
         <div>
-          <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 3 }}>ENTREGA OFERTA</div>
+          <div style={{ fontSize: 10, color: '#626469', marginBottom: 3, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.4 }}>Entrega oferta</div>
           <input
             type="date"
             value={form.fecha_entrega}
             onChange={e => { const v = e.target.value; setForm(f => ({ ...f, fecha_entrega: v })); saveField('fecha_entrega', v) }}
-            style={{ ...INPUT, width: 140, colorScheme: 'dark' }}
+            style={{ ...INPUT, width: 140 }}
           />
         </div>
         <div>
-          <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 3 }}>ETAPA</div>
+          <div style={{ fontSize: 10, color: '#626469', marginBottom: 3, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.4 }}>Etapa</div>
           <select
             value={form.etapa}
             onChange={e => { const v = e.target.value; setForm(f => ({ ...f, etapa: v })); saveField('etapa', v) }}
@@ -77,7 +76,7 @@ function HospitalRow({ hospital, projectColor, onUpdateOffer, onOpenPackage, onA
       </div>
 
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 6 }}>PAQUETES</div>
+        <div style={{ fontSize: 10, color: '#626469', marginBottom: 6, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.4 }}>Paquetes</div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
           {PAQUETES.map(p => {
             const active = activePackages.has(p.id)
@@ -87,11 +86,12 @@ function HospitalRow({ hospital, projectColor, onUpdateOffer, onOpenPackage, onA
                 onClick={() => onOpenPackage({ hospitalId: hospital.id, hospitalNombre: hospital.nombre, paqueteId: p.id, projectColor })}
                 title={p.labelFull}
                 style={{
-                  background: active ? projectColor + '33' : '#2D3139',
-                  color: active ? projectColor : '#9CA3AF',
-                  border: `1px solid ${active ? projectColor : '#374151'}`,
-                  borderRadius: 6, padding: '3px 9px', fontSize: 11,
+                  background: active ? projectColor + '18' : '#F9F9F9',
+                  color: active ? projectColor : '#626469',
+                  border: `1px solid ${active ? projectColor : '#E0E0E0'}`,
+                  borderRadius: 4, padding: '3px 9px', fontSize: 11,
                   cursor: 'pointer', fontWeight: active ? 700 : 400,
+                  transition: 'all 0.12s',
                 }}
               >
                 {p.icon} {p.label}
@@ -102,34 +102,34 @@ function HospitalRow({ hospital, projectColor, onUpdateOffer, onOpenPackage, onA
       </div>
 
       {activePendientes.length > 0 && (
-        <div style={{ marginBottom: 8 }}>
-          <div style={{ fontSize: 10, color: '#6B7280', marginBottom: 5 }}>PENDIENTES</div>
+        <div style={{ marginBottom: 10 }}>
+          <div style={{ fontSize: 10, color: '#626469', marginBottom: 5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.4 }}>Pendientes</div>
           {activePendientes.map(p => (
             <div key={p.id} style={{ display: 'flex', gap: 6, marginBottom: 4, alignItems: 'flex-start' }}>
               <button
                 onClick={() => onCompletePendiente(p.id)}
                 title="Marcar completado"
-                style={{ background: 'none', border: '1px solid #374151', borderRadius: 4, color: '#6B7280', cursor: 'pointer', fontSize: 9, padding: '2px 5px', marginTop: 1, flexShrink: 0 }}
+                style={{ background: 'none', border: '1px solid #E0E0E0', borderRadius: 4, color: '#626469', cursor: 'pointer', fontSize: 9, padding: '2px 5px', marginTop: 2, flexShrink: 0 }}
               >
                 ✓
               </button>
-              <span style={{ fontSize: 12, color: '#D1D5DB', lineHeight: 1.5 }}>{p.texto}</span>
+              <span style={{ fontSize: 12, color: '#333333', lineHeight: 1.5 }}>{p.texto}</span>
             </div>
           ))}
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
         <input
           value={newPendiente}
           onChange={e => setNewPendiente(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') handleAddPendiente() }}
           placeholder="Agregar pendiente..."
-          style={{ flex: 1, background: '#111318', border: '1px solid #2D3139', borderRadius: 6, color: '#9CA3AF', padding: '4px 8px', fontSize: 12 }}
+          style={{ flex: 1, background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 4, color: '#626469', padding: '5px 8px', fontSize: 12 }}
         />
         <button
           onClick={handleAddPendiente}
-          style={{ background: '#2D3139', border: 'none', borderRadius: 6, color: '#9CA3AF', cursor: 'pointer', fontSize: 14, padding: '4px 10px' }}
+          style={{ background: '#F9F9F9', border: '1px solid #E0E0E0', borderRadius: 4, color: '#626469', cursor: 'pointer', fontSize: 14, padding: '4px 12px' }}
         >
           +
         </button>
@@ -141,7 +141,7 @@ function HospitalRow({ hospital, projectColor, onUpdateOffer, onOpenPackage, onA
         onBlur={() => saveField('notas', form.notas)}
         placeholder="Notas del proyecto..."
         rows={2}
-        style={{ width: '100%', background: '#111318', border: '1px solid #2D3139', borderRadius: 6, color: '#9CA3AF', padding: '6px 8px', fontSize: 12, resize: 'vertical', marginBottom: 12 }}
+        style={{ width: '100%', background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 4, color: '#626469', padding: '6px 8px', fontSize: 12, resize: 'vertical', marginBottom: 12 }}
       />
 
       <button onClick={() => onDeleteHospital(hospital)} style={DEL_BTN}>
@@ -157,23 +157,23 @@ export default function ProjectCard({ project, onUpdateOffer, onOpenPackage, onA
   const etapasLabel = [...new Set(hospitals.map(h => h.offers?.[0]?.etapa).filter(Boolean))].join(', ') || 'Sin etapa'
 
   return (
-    <div style={{ background: '#1A1D23', border: `1px solid ${project.color}33`, borderRadius: 12, overflow: 'hidden', marginBottom: 14 }}>
+    <div style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 8, overflow: 'hidden', marginBottom: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
       <div
         onClick={() => setExpanded(!expanded)}
         style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', borderLeft: `4px solid ${project.color}` }}
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontWeight: 800, fontSize: 15, color: '#F9FAFB' }}>{project.constructora}</span>
+            <span style={{ fontWeight: 800, fontSize: 15, color: '#333333' }}>{project.constructora}</span>
             {project.red && (
-              <span style={{ fontSize: 10, color: project.color, background: project.color + '22', borderRadius: 4, padding: '2px 7px' }}>{project.red}</span>
+              <span style={{ fontSize: 10, color: project.color, background: project.color + '18', borderRadius: 4, padding: '2px 7px', fontWeight: 700 }}>{project.red}</span>
             )}
           </div>
-          <div style={{ fontSize: 11, color: '#6B7280', marginTop: 2 }}>
+          <div style={{ fontSize: 12, color: '#626469', marginTop: 2 }}>
             {hospitals.length} proyecto{hospitals.length !== 1 ? 's' : ''} · {etapasLabel}
           </div>
         </div>
-        <span style={{ color: '#6B7280' }}>{expanded ? '▲' : '▼'}</span>
+        <span style={{ color: '#626469', fontSize: 12 }}>{expanded ? '▲' : '▼'}</span>
       </div>
 
       {expanded && (
@@ -190,7 +190,7 @@ export default function ProjectCard({ project, onUpdateOffer, onOpenPackage, onA
               onDeleteHospital={onDeleteHospital}
             />
           ))}
-          <div style={{ padding: '12px 18px', borderTop: '1px solid #2D3139' }}>
+          <div style={{ padding: '12px 18px', borderTop: '1px solid #E0E0E0', background: '#F9F9F9' }}>
             <button onClick={() => onDeleteProject(project)} style={DEL_BTN}>
               Eliminar constructora "{project.constructora}" y todos sus proyectos
             </button>

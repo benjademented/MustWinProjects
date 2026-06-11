@@ -23,7 +23,7 @@ export default function ResumenTab({ refreshKey }) {
     setProjects(data || [])
   }
 
-  if (!projects) return <div style={{ color: '#6B7280', fontSize: 14, textAlign: 'center', padding: 40 }}>Cargando...</div>
+  if (!projects) return <div style={{ color: '#626469', fontSize: 14, textAlign: 'center', padding: 40 }}>Cargando...</div>
 
   const allHospitals = projects.flatMap(p => p.hospitals || [])
   const adjudicados = allHospitals.filter(h => h.offers?.[0]?.etapa === 'Adjudicado').length
@@ -32,33 +32,35 @@ export default function ResumenTab({ refreshKey }) {
     (acc, h) => acc + (h.pendientes?.filter(p => !p.completado).length || 0), 0
   )
 
+  const stats = [
+    { label: 'Constructoras', value: projects.length, color: '#42B4E6' },
+    { label: 'Hospitales totales', value: allHospitals.length, color: '#3DCD58' },
+    { label: 'Adjudicados', value: adjudicados, color: '#008029' },
+    { label: 'Paquetes activos', value: activePaquetes, color: '#8B5CF6' },
+    { label: 'Pendientes abiertos', value: totalPendientes, color: '#E47F00' },
+  ]
+
   return (
     <div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
-        {[
-          { label: 'Constructoras', value: projects.length, color: '#00B2A9' },
-          { label: 'Hospitales totales', value: allHospitals.length, color: '#3D9BE9' },
-          { label: 'Adjudicados', value: adjudicados, color: '#10B981' },
-          { label: 'Paquetes activos', value: activePaquetes, color: '#8B5CF6' },
-          { label: 'Pendientes abiertos', value: totalPendientes, color: '#F5A623' },
-        ].map(s => (
-          <div key={s.label} style={{ background: '#1A1D23', border: `1px solid ${s.color}33`, borderRadius: 12, padding: 14 }}>
-            <div style={{ fontSize: 26, fontWeight: 900, color: s.color }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: '#6B7280', marginTop: 3 }}>{s.label}</div>
+        {stats.map(s => (
+          <div key={s.label} style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderTop: `3px solid ${s.color}`, borderRadius: 8, padding: 14, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+            <div style={{ fontSize: 28, fontWeight: 800, color: s.color }}>{s.value}</div>
+            <div style={{ fontSize: 12, color: '#626469', marginTop: 3 }}>{s.label}</div>
           </div>
         ))}
       </div>
 
-      <div style={{ fontSize: 11, color: '#6B7280', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 0.5 }}>Estado por proyecto</div>
+      <div style={{ fontSize: 11, color: '#626469', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 0.5, fontWeight: 700 }}>Estado por proyecto</div>
       {projects.map(p => (
-        <div key={p.id} style={{ background: '#1A1D23', borderLeft: `4px solid ${p.color}`, borderRadius: 10, padding: '12px 14px', marginBottom: 10 }}>
-          <div style={{ fontWeight: 700, color: '#F9FAFB', marginBottom: 8, fontSize: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div key={p.id} style={{ background: '#FFFFFF', borderLeft: `4px solid ${p.color}`, border: '1px solid #E0E0E0', borderRadius: 8, padding: '12px 14px', marginBottom: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+          <div style={{ fontWeight: 700, color: '#333333', marginBottom: 8, fontSize: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
             {p.constructora}
-            {p.red && <span style={{ fontSize: 10, color: p.color, background: p.color + '22', borderRadius: 4, padding: '2px 7px' }}>{p.red}</span>}
+            {p.red && <span style={{ fontSize: 10, color: p.color, background: p.color + '18', borderRadius: 4, padding: '2px 7px', fontWeight: 700 }}>{p.red}</span>}
           </div>
           {(p.hospitals || []).map(h => (
-            <div key={h.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 0', borderBottom: '1px solid #2D3139' }}>
-              <span style={{ fontSize: 12, color: '#9CA3AF' }}>🏥 {h.nombre}</span>
+            <div key={h.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: '1px solid #F0F0F0' }}>
+              <span style={{ fontSize: 13, color: '#626469' }}>🏥 {h.nombre}</span>
               <Badge etapa={h.offers?.[0]?.etapa || 'Prospecto'} />
             </div>
           ))}
@@ -67,7 +69,7 @@ export default function ResumenTab({ refreshKey }) {
 
       {totalPendientes > 0 && (
         <>
-          <div style={{ fontSize: 11, color: '#6B7280', margin: '20px 0 10px', textTransform: 'uppercase', letterSpacing: 0.5 }}>Todos los pendientes</div>
+          <div style={{ fontSize: 11, color: '#626469', margin: '20px 0 10px', textTransform: 'uppercase', letterSpacing: 0.5, fontWeight: 700 }}>Todos los pendientes</div>
           {projects.map(p => {
             const items = (p.hospitals || []).flatMap(h =>
               (h.pendientes || [])
@@ -80,10 +82,10 @@ export default function ResumenTab({ refreshKey }) {
                 <div style={{ fontSize: 12, color: p.color, fontWeight: 700, marginBottom: 6 }}>{p.constructora}</div>
                 {items.map(item => (
                   <div key={item.id} style={{ display: 'flex', gap: 8, marginBottom: 5, alignItems: 'flex-start' }}>
-                    <span style={{ color: '#F5A623', fontSize: 12 }}>→</span>
+                    <span style={{ color: '#E47F00', fontSize: 12 }}>→</span>
                     <div>
-                      <div style={{ fontSize: 12, color: '#D1D5DB' }}>{item.texto}</div>
-                      <div style={{ fontSize: 10, color: '#6B7280' }}>{item.hospitalNombre}</div>
+                      <div style={{ fontSize: 13, color: '#333333' }}>{item.texto}</div>
+                      <div style={{ fontSize: 11, color: '#626469' }}>{item.hospitalNombre}</div>
                     </div>
                   </div>
                 ))}

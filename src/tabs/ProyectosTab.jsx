@@ -3,10 +3,10 @@ import { supabase } from '../lib/supabase'
 import ProjectCard from '../components/ProjectCard'
 
 // Paleta para asignar color a constructoras nuevas
-const COLOR_PALETTE = ['#00B2A9', '#3D9BE9', '#F5A623', '#8B5CF6', '#EC4899', '#10B981', '#EF4444', '#14B8A6']
+const COLOR_PALETTE = ['#3DCD58', '#42B4E6', '#E47F00', '#8B5CF6', '#EC4899', '#008029', '#DC0A0A', '#00B2A9']
 
-const NEW_INPUT = { width: '100%', background: '#111318', border: '1px solid #374151', borderRadius: 6, color: '#E5E7EB', padding: '8px 10px', fontSize: 13 }
-const NEW_LABEL = { fontSize: 10, color: '#6B7280', fontWeight: 700, display: 'block', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }
+const NEW_INPUT = { width: '100%', background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 4, color: '#333333', padding: '8px 10px', fontSize: 13 }
+const NEW_LABEL = { fontSize: 11, color: '#626469', fontWeight: 700, display: 'block', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }
 
 export default function ProyectosTab({ refreshKey, userId, onOpenPackage }) {
   const [projects, setProjects] = useState([])
@@ -140,20 +140,20 @@ export default function ProyectosTab({ refreshKey, userId, onOpenPackage }) {
   }
 
   if (loading) {
-    return <div style={{ color: '#6B7280', fontSize: 14, textAlign: 'center', padding: 40 }}>Cargando proyectos...</div>
+    return <div style={{ color: '#626469', fontSize: 14, textAlign: 'center', padding: 40 }}>Cargando proyectos...</div>
   }
 
   return (
     <>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 16 }}>
         {[
-          { label: 'Adjudicados', value: adjudicados, color: '#10B981' },
-          { label: 'En proceso', value: enProceso, color: '#3D9BE9' },
-          { label: 'Pendientes', value: totalPendientes, color: '#F5A623' },
+          { label: 'Adjudicados', value: adjudicados, color: '#008029' },
+          { label: 'En proceso', value: enProceso, color: '#42B4E6' },
+          { label: 'Pendientes', value: totalPendientes, color: '#E47F00' },
         ].map(s => (
-          <div key={s.label} style={{ background: '#1A1D23', border: `1px solid ${s.color}33`, borderRadius: 10, padding: '10px 12px', textAlign: 'center' }}>
-            <div style={{ fontSize: 24, fontWeight: 900, color: s.color }}>{s.value}</div>
-            <div style={{ fontSize: 10, color: '#6B7280', marginTop: 2 }}>{s.label}</div>
+          <div key={s.label} style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderTop: `3px solid ${s.color}`, borderRadius: 8, padding: '12px 12px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+            <div style={{ fontSize: 26, fontWeight: 800, color: s.color }}>{s.value}</div>
+            <div style={{ fontSize: 11, color: '#626469', marginTop: 2 }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -162,19 +162,19 @@ export default function ProyectosTab({ refreshKey, userId, onOpenPackage }) {
       {!showForm ? (
         <button
           onClick={() => setShowForm(true)}
-          style={{ width: '100%', background: '#00B2A9', color: '#fff', border: 'none', borderRadius: 10, padding: '11px', fontSize: 13, fontWeight: 700, cursor: 'pointer', marginBottom: 16 }}
+          style={{ width: '100%', background: '#3DCD58', color: '#fff', border: 'none', borderRadius: 4, padding: '12px', fontSize: 14, fontWeight: 700, cursor: 'pointer', marginBottom: 16 }}
         >
           + Nuevo proyecto
         </button>
       ) : (
-        <div style={{ background: '#1A1D23', border: '1px solid #2D3139', borderRadius: 12, padding: 16, marginBottom: 16 }}>
-          <div style={{ fontSize: 13, fontWeight: 800, color: '#F9FAFB', marginBottom: 14 }}>Nuevo proyecto</div>
+        <div style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 8, padding: 16, marginBottom: 16, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+          <div style={{ fontSize: 14, fontWeight: 800, color: '#333333', marginBottom: 14 }}>Nuevo proyecto</div>
 
           <div style={{ marginBottom: 12 }}>
             <label style={NEW_LABEL}>Cliente / Constructora</label>
             <select value={constructoraSel} onChange={e => setConstructoraSel(e.target.value)} style={NEW_INPUT}>
               {projects.map(p => <option key={p.id} value={p.id}>{p.constructora}</option>)}
-              <option value="__nueva__">➕ Nueva constructora…</option>
+              <option value="__nueva__">+ Nueva constructora…</option>
             </select>
           </div>
 
@@ -197,8 +197,8 @@ export default function ProyectosTab({ refreshKey, userId, onOpenPackage }) {
           </div>
 
           <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
-            <button onClick={resetForm} disabled={creating} style={{ background: 'transparent', color: '#6B7280', border: '1px solid #374151', borderRadius: 7, padding: '7px 14px', fontSize: 13, cursor: 'pointer' }}>Cancelar</button>
-            <button onClick={handleCreate} disabled={creating} style={{ background: '#00B2A9', color: '#fff', border: 'none', borderRadius: 7, padding: '7px 16px', fontSize: 13, fontWeight: 700, cursor: creating ? 'wait' : 'pointer', opacity: creating ? 0.7 : 1 }}>
+            <button onClick={resetForm} disabled={creating} style={{ background: 'transparent', color: '#626469', border: '1px solid #E0E0E0', borderRadius: 4, padding: '8px 16px', fontSize: 13, cursor: 'pointer' }}>Cancelar</button>
+            <button onClick={handleCreate} disabled={creating} style={{ background: '#3DCD58', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 18px', fontSize: 13, fontWeight: 700, cursor: creating ? 'wait' : 'pointer', opacity: creating ? 0.7 : 1 }}>
               {creating ? 'Creando…' : 'Crear proyecto'}
             </button>
           </div>

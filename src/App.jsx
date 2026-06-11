@@ -4,13 +4,15 @@ import { supabase, isConfigured } from './lib/supabase'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 
+const SE = "'Nunito', -apple-system, 'Segoe UI', Arial, sans-serif"
+
 const C = {
-  wrap: { minHeight: '100vh', background: '#111318', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Inter', sans-serif" },
-  msg: { color: '#6B7280', fontSize: 14 },
-  card: { background: '#1A1D23', borderRadius: 12, padding: 28, maxWidth: 400, textAlign: 'center', border: '1px solid #2D3139' },
-  cardTitle: { color: '#F5A623', fontWeight: 700, marginBottom: 10, fontSize: 15 },
-  cardText: { color: '#6B7280', fontSize: 13, lineHeight: 1.7 },
-  code: { background: '#111318', padding: '2px 6px', borderRadius: 4, color: '#00B2A9', fontFamily: 'monospace' },
+  wrap: { minHeight: '100vh', background: '#F9F9F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SE },
+  msg: { color: '#626469', fontSize: 14 },
+  card: { background: '#FFFFFF', borderRadius: 8, padding: 28, maxWidth: 400, textAlign: 'center', border: '1px solid #E0E0E0', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
+  cardTitle: { color: '#E47F00', fontWeight: 700, marginBottom: 10, fontSize: 15 },
+  cardText: { color: '#626469', fontSize: 13, lineHeight: 1.7 },
+  code: { background: '#F9F9F9', padding: '2px 6px', borderRadius: 4, color: '#008029', fontFamily: 'monospace', border: '1px solid #E0E0E0' },
 }
 
 export default function App() {

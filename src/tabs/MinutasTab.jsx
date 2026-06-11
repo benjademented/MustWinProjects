@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 
-const INPUT = { width: '100%', background: '#111318', border: '1px solid #374151', borderRadius: 6, color: '#E5E7EB', padding: '8px 10px', fontSize: 13 }
-const LABEL = { fontSize: 10, color: '#6B7280', fontWeight: 700, display: 'block', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }
+const INPUT = { width: '100%', background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 4, color: '#333333', padding: '8px 10px', fontSize: 13 }
+const LABEL = { fontSize: 11, color: '#626469', fontWeight: 700, display: 'block', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }
 
 function today() { return new Date().toISOString().split('T')[0] }
 
@@ -49,22 +49,22 @@ export default function MinutasTab({ userId, onMinutasChange }) {
     onMinutasChange()
   }
 
-  if (loading) return <div style={{ color: '#6B7280', fontSize: 14, textAlign: 'center', padding: 40 }}>Cargando...</div>
+  if (loading) return <div style={{ color: '#626469', fontSize: 14, textAlign: 'center', padding: 40 }}>Cargando...</div>
 
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-        <div style={{ color: '#6B7280', fontSize: 12 }}>Reuniones y llamadas de seguimiento</div>
+        <div style={{ color: '#626469', fontSize: 13 }}>Reuniones y llamadas de seguimiento</div>
         <button
           onClick={() => setShowForm(!showForm)}
-          style={{ background: '#00B2A9', color: '#fff', border: 'none', borderRadius: 7, padding: '6px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+          style={{ background: '#3DCD58', color: '#fff', border: 'none', borderRadius: 4, padding: '7px 16px', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
         >
           + Nueva minuta
         </button>
       </div>
 
       {showForm && (
-        <div style={{ background: '#1A1D23', border: '1px solid #00B2A944', borderRadius: 12, padding: 16, marginBottom: 16 }}>
+        <div style={{ background: '#FFFFFF', border: '1px solid #3DCD58', borderRadius: 8, padding: 16, marginBottom: 16, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
           <div style={{ marginBottom: 12 }}>
             <label style={LABEL}>Fecha</label>
             <input type="date" value={form.fecha} onChange={e => setForm(f => ({ ...f, fecha: e.target.value }))} style={INPUT} />
@@ -91,14 +91,14 @@ export default function MinutasTab({ userId, onMinutasChange }) {
           <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
             <button
               onClick={() => setShowForm(false)}
-              style={{ background: 'transparent', color: '#6B7280', border: '1px solid #374151', borderRadius: 7, padding: '6px 14px', fontSize: 12, cursor: 'pointer' }}
+              style={{ background: 'transparent', color: '#626469', border: '1px solid #E0E0E0', borderRadius: 4, padding: '7px 16px', fontSize: 13, cursor: 'pointer' }}
             >
               Cancelar
             </button>
             <button
               onClick={handleSave}
               disabled={saving || !form.resumen.trim()}
-              style={{ background: '#00B2A9', color: '#fff', border: 'none', borderRadius: 7, padding: '6px 14px', fontSize: 12, fontWeight: 700, cursor: saving ? 'wait' : 'pointer', opacity: (saving || !form.resumen.trim()) ? 0.6 : 1 }}
+              style={{ background: '#3DCD58', color: '#fff', border: 'none', borderRadius: 4, padding: '7px 18px', fontSize: 13, fontWeight: 700, cursor: saving ? 'wait' : 'pointer', opacity: (saving || !form.resumen.trim()) ? 0.6 : 1 }}
             >
               {saving ? 'Guardando...' : 'Guardar minuta'}
             </button>
@@ -107,34 +107,34 @@ export default function MinutasTab({ userId, onMinutasChange }) {
       )}
 
       {minutas.map((m, i) => (
-        <div key={m.id} style={{ background: '#1A1D23', border: '1px solid #2D3139', borderRadius: 12, padding: 14, marginBottom: 12 }}>
+        <div key={m.id} style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 8, padding: 16, marginBottom: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, alignItems: 'flex-start' }}>
-            <span style={{ fontWeight: 700, color: '#E5E7EB', fontSize: 13 }}>Minuta #{minutas.length - i}</span>
+            <span style={{ fontWeight: 700, color: '#333333', fontSize: 14 }}>Minuta #{minutas.length - i}</span>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              <span style={{ fontSize: 11, color: '#6B7280' }}>{fmtDate(m.fecha)}</span>
+              <span style={{ fontSize: 12, color: '#626469' }}>{fmtDate(m.fecha)}</span>
               <button
                 onClick={() => handleDelete(m.id)}
                 title="Eliminar"
-                style={{ background: 'none', border: 'none', color: '#4B5563', cursor: 'pointer', fontSize: 14, lineHeight: 1 }}
+                style={{ background: 'none', border: 'none', color: '#C0C0C0', cursor: 'pointer', fontSize: 14, lineHeight: 1 }}
               >
                 ✕
               </button>
             </div>
           </div>
-          <div style={{ fontSize: 13, color: '#D1D5DB', background: '#111318', borderRadius: 8, padding: '10px 12px', lineHeight: 1.6 }}>
+          <div style={{ fontSize: 13, color: '#333333', background: '#F9F9F9', borderRadius: 4, padding: '10px 12px', lineHeight: 1.6 }}>
             {m.resumen}
           </div>
           {m.transcripcion && (
             <details style={{ marginTop: 8 }}>
-              <summary style={{ fontSize: 11, color: '#6B7280', cursor: 'pointer' }}>Ver texto completo</summary>
-              <div style={{ fontSize: 12, color: '#6B7280', marginTop: 8, lineHeight: 1.7, padding: '0 4px' }}>{m.transcripcion}</div>
+              <summary style={{ fontSize: 12, color: '#008029', cursor: 'pointer' }}>Ver texto completo →</summary>
+              <div style={{ fontSize: 13, color: '#626469', marginTop: 8, lineHeight: 1.7, padding: '0 4px' }}>{m.transcripcion}</div>
             </details>
           )}
         </div>
       ))}
 
       {minutas.length === 0 && !showForm && (
-        <div style={{ color: '#4B5563', fontSize: 13, textAlign: 'center', padding: 48, background: '#1A1D23', borderRadius: 12, border: '1px solid #2D3139' }}>
+        <div style={{ color: '#626469', fontSize: 13, textAlign: 'center', padding: 48, background: '#FFFFFF', borderRadius: 8, border: '1px solid #E0E0E0' }}>
           Sin minutas todavía. Usa el botón para agregar la primera.
         </div>
       )}

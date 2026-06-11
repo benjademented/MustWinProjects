@@ -29,7 +29,7 @@ export default function Dashboard({ session }) {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#111318', fontFamily: "'Inter', sans-serif", color: '#E5E7EB' }}>
+    <div style={{ minHeight: '100vh', background: '#F9F9F9', fontFamily: "'Nunito', -apple-system, 'Segoe UI', Arial, sans-serif", color: '#333333' }}>
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}

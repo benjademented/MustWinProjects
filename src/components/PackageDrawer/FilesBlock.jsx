@@ -57,7 +57,6 @@ export default function FilesBlock({ trackingId, ensureTracking, hospitalId, paq
 
     setUploading(true)
 
-    // Crea el registro de seguimiento si aún no existe
     let tid = trackingId
     if (!tid) {
       const t = await ensureTracking()
@@ -95,15 +94,15 @@ export default function FilesBlock({ trackingId, ensureTracking, hospitalId, paq
   }
 
   return (
-    <div style={{ background: '#1A1D23', border: '1px solid #2D3139', borderRadius: 12, padding: 16, marginBottom: 12 }}>
+    <div style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 8, padding: 16, marginBottom: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#626469', textTransform: 'uppercase', letterSpacing: 0.5 }}>
           C · Archivos
         </div>
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          style={{ background: '#2D3139', color: '#9CA3AF', border: 'none', borderRadius: 6, padding: '5px 12px', fontSize: 12, cursor: uploading ? 'wait' : 'pointer' }}
+          style={{ background: '#F9F9F9', color: '#626469', border: '1px solid #E0E0E0', borderRadius: 4, padding: '5px 12px', fontSize: 12, cursor: uploading ? 'wait' : 'pointer', fontWeight: 600 }}
         >
           {uploading ? 'Subiendo...' : '+ Subir archivo'}
         </button>
@@ -117,29 +116,29 @@ export default function FilesBlock({ trackingId, ensureTracking, hospitalId, paq
       </div>
 
       {error && (
-        <div style={{ background: '#EF444422', border: '1px solid #EF444444', borderRadius: 6, padding: '8px 12px', color: '#EF4444', fontSize: 12, marginBottom: 10 }}>
+        <div style={{ background: 'rgba(220,10,10,0.06)', border: '1px solid rgba(220,10,10,0.2)', borderRadius: 4, padding: '8px 12px', color: '#DC0A0A', fontSize: 12, marginBottom: 10 }}>
           {error}
         </div>
       )}
 
       {files.length === 0 ? (
-        <div style={{ color: '#4B5563', fontSize: 13, textAlign: 'center', padding: '20px 0' }}>
+        <div style={{ color: '#626469', fontSize: 13, textAlign: 'center', padding: '20px 0' }}>
           Sin archivos. Sube el primero con el botón de arriba.<br />
           <span style={{ fontSize: 11 }}>Formatos: PDF, Excel · Máx. {MAX_SIZE_MB} MB</span>
         </div>
       ) : (
         files.map(f => (
-          <div key={f.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #2D3139' }}>
+          <div key={f.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #F0F0F0' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
               <span>{fileIcon(f.tipo)}</span>
               <div style={{ minWidth: 0 }}>
-                <div style={{ fontSize: 13, color: '#D1D5DB', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{f.nombre_archivo}</div>
-                <div style={{ fontSize: 10, color: '#6B7280' }}>{f.tipo?.toUpperCase()} · {fmtDate(f.fecha_subida)}</div>
+                <div style={{ fontSize: 13, color: '#333333', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{f.nombre_archivo}</div>
+                <div style={{ fontSize: 11, color: '#626469' }}>{f.tipo?.toUpperCase()} · {fmtDate(f.fecha_subida)}</div>
               </div>
             </div>
             <div style={{ display: 'flex', gap: 6, flexShrink: 0, marginLeft: 8 }}>
-              <button onClick={() => handleDownload(f)} title="Descargar" style={{ background: '#2D3139', border: 'none', borderRadius: 5, color: '#9CA3AF', cursor: 'pointer', fontSize: 12, padding: '4px 8px' }}>↓</button>
-              <button onClick={() => handleDelete(f)} title="Eliminar" style={{ background: 'none', border: 'none', color: '#4B5563', cursor: 'pointer', fontSize: 14 }}>✕</button>
+              <button onClick={() => handleDownload(f)} title="Descargar" style={{ background: '#F9F9F9', border: '1px solid #E0E0E0', borderRadius: 4, color: '#626469', cursor: 'pointer', fontSize: 12, padding: '4px 8px' }}>↓</button>
+              <button onClick={() => handleDelete(f)} title="Eliminar" style={{ background: 'none', border: 'none', color: '#C0C0C0', cursor: 'pointer', fontSize: 14 }}>✕</button>
             </div>
           </div>
         ))

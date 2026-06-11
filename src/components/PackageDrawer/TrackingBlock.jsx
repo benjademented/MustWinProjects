@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { ESTADOS_PAQUETE } from '../../constants'
 
-const INPUT = { width: '100%', background: '#111318', border: '1px solid #374151', borderRadius: 6, color: '#E5E7EB', padding: '7px 10px', fontSize: 13 }
-const LABEL = { fontSize: 10, color: '#6B7280', fontWeight: 700, display: 'block', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }
+const INPUT = { width: '100%', background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 4, color: '#333333', padding: '7px 10px', fontSize: 13 }
+const LABEL = { fontSize: 11, color: '#626469', fontWeight: 700, display: 'block', marginBottom: 5, textTransform: 'uppercase', letterSpacing: 0.5 }
 const FIELD = { marginBottom: 12 }
 
 export default function TrackingBlock({ tracking, onSave }) {
@@ -51,8 +51,8 @@ export default function TrackingBlock({ tracking, onSave }) {
   function f(field, value) { setForm(prev => ({ ...prev, [field]: value })) }
 
   return (
-    <div style={{ background: '#1A1D23', border: '1px solid #2D3139', borderRadius: 12, padding: 16, marginBottom: 12 }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#9CA3AF', marginBottom: 14, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+    <div style={{ background: '#FFFFFF', border: '1px solid #E0E0E0', borderRadius: 8, padding: 16, marginBottom: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: '#626469', marginBottom: 14, textTransform: 'uppercase', letterSpacing: 0.5 }}>
         A · Seguimiento
       </div>
 
@@ -64,10 +64,10 @@ export default function TrackingBlock({ tracking, onSave }) {
               key={opt}
               onClick={() => f('via_cotizacion', form.via_cotizacion === opt ? '' : opt)}
               style={{
-                background: form.via_cotizacion === opt ? '#00B2A933' : '#111318',
-                color: form.via_cotizacion === opt ? '#00B2A9' : '#6B7280',
-                border: `1px solid ${form.via_cotizacion === opt ? '#00B2A9' : '#374151'}`,
-                borderRadius: 6, padding: '5px 16px', fontSize: 13, cursor: 'pointer', fontWeight: 600,
+                background: form.via_cotizacion === opt ? 'rgba(61,205,88,0.12)' : '#F9F9F9',
+                color: form.via_cotizacion === opt ? '#008029' : '#626469',
+                border: `1px solid ${form.via_cotizacion === opt ? '#3DCD58' : '#E0E0E0'}`,
+                borderRadius: 4, padding: '5px 18px', fontSize: 13, cursor: 'pointer', fontWeight: 600,
               }}
             >
               {opt}
@@ -123,10 +123,11 @@ export default function TrackingBlock({ tracking, onSave }) {
         onClick={handleSave}
         disabled={saving}
         style={{
-          background: saved ? '#10B981' : '#00B2A9',
-          color: '#fff', border: 'none', borderRadius: 7,
-          padding: '8px 18px', fontSize: 13, fontWeight: 700,
+          background: saved ? '#008029' : '#3DCD58',
+          color: '#fff', border: 'none', borderRadius: 4,
+          padding: '8px 20px', fontSize: 13, fontWeight: 700,
           cursor: saving ? 'wait' : 'pointer', opacity: saving ? 0.7 : 1,
+          transition: 'background 0.2s',
         }}
       >
         {saving ? 'Guardando...' : saved ? '✓ Guardado' : 'Guardar seguimiento'}

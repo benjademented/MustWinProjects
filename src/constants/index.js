@@ -109,12 +109,12 @@ export const ETAPAS = [
 ]
 
 export const ETAPA_COLOR = {
-  'Prospecto': '#6B7280',
-  'En cotización': '#3D9BE9',
-  'Oferta enviada': '#F5A623',
+  'Prospecto': '#626469',
+  'En cotización': '#42B4E6',
+  'Oferta enviada': '#E47F00',
   'Negociación': '#8B5CF6',
-  'Adjudicado': '#10B981',
-  'Perdido': '#EF4444',
+  'Adjudicado': '#008029',
+  'Perdido': '#DC0A0A',
 }
 
 export const ESTADOS_PAQUETE = [
